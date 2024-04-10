@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import {
     MDBCard,
     MDBCardImage,
@@ -6,12 +7,14 @@ import {
     MDBCardTitle,
     MDBCardText,
     MDBRow,
+    MDBBtn,
     MDBCol
   } from 'mdb-react-ui-kit';
 import Footer from "./Footer";
 function Jwellery()
 {
     const [apidata,setdata]=useState([])
+    const navigate=useNavigate()
     useEffect(()=>{
            getData()
     },[])
@@ -21,6 +24,11 @@ var result=await fetch("https://fakestoreapi.com/products/category/jewelery")
 //console.log(result)
 var data=await result.json()
 setdata(data)
+    }
+    function hello(pid)
+    {
+       const data={pid:pid}
+       navigate("/item",{state:data})
     }
     return(
         <div>
@@ -43,6 +51,7 @@ setdata(data)
             <MDBCardText>
               {item.description}
             </MDBCardText>
+            <center><MDBBtn onClick={()=>hello(item.id)}>View Deatils {item.id}</MDBBtn></center>
           </MDBCardBody>
         </MDBCard>
       </MDBCol>
